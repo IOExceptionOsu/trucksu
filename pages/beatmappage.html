@@ -7,7 +7,7 @@
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
-	<li role="presentation" ng-repeat="beatmap in info.beatmaps" ng-class="{ active: beatmap.id == current_bid }">
+	<li role="presentation" ng-repeat="beatmap in info.beatmaps" ng-if="beatmap.game_mode == 0" ng-class="{ active: beatmap.id == current_bid }">
 		<a href="/b/{{ beatmap.id }}" aria-controls="/b/{{ beatmap.id }}" role="tab" data-toggle="tab"><img src="/images/difficulty/{{ beatmap.difficultyrating | difficultyImage }}.png" style="vertical-align: middle;" /> {{ beatmap.version }}</a>
 	</li>
 </ul>
