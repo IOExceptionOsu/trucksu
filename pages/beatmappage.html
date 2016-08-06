@@ -16,9 +16,13 @@
 	<div role="tabpanel" ng-repeat="beatmap in info.beatmaps" ng-if="beatmap.game_mode == 0" ng-class="{ 'tab-pane': true, active: beatmap.id == current_bid }">
 		<div class="row">
 			<div class="col-sm-3 col-xs-12">
+				<p>
+					<img src="http://b.ppy.sh/thumb/{{ info.id }}l.jpg" style="width: 100%;" />
+				</p>
 				<div class="panel panel-default">
 					<div class="list-group">
 						<div class="list-group-item"><i class="fa fa-fw fa-star" ng-repeat="_ in ((_ = []) && (_.length=Math.floor(beatmap.difficultyrating)) && _) track by $index"></i> {{ beatmap.difficultyrating | number: 2 }}</div>
+						<div class="list-group-item"><i class="fa fa-fw fa-times-o"></i> {{ beatmap.max_combo | number: 0 }}</div>
 						<div class="list-group-item"><i class="fa fa-fw fa-clock-o"></i> {{ beatmap.hit_length | timeFormat }}</div>
 					</div>
 				</div>
@@ -86,7 +90,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="score in beatmap.scores">
+								<tr ng-repeat="score in beatmap.scores | orderBy: '-pp'">
 									<td>{{ $index + 1 }}</td>
 									<td><a href="/u/{{ score.user.id }}">{{ score.user.username }}</a></td>
 									<td>{{ score.pp | number: 2 }}pp</td>
