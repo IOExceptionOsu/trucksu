@@ -45,7 +45,32 @@ app.filter("ordinal", function() {
 	return function(n) {
 		return n + ([,'st','nd','rd'][~~(n/10%10)-1?n%10:0]||'th')
 	}
-})
+});
+
+app.filter("difficultyImage", function() {
+	return function(stars) {
+		if (stars < 1.5) return "easy";
+		if (stars < 2.25) return "normal";
+		if (stars < 3.75) return "hard";
+		if (stars < 5.25) return "insane";
+		return "expert";
+	}
+});
+
+app.filter("timeFormat", function() {
+	return function(seconds) {
+		var hours = Math.floor(seconds / 3600);
+		seconds %= 3600;
+		var minutes = Math.floor(seconds / 60);
+		seconds %= 60;
+		var str = "";
+		if (hours > 0) {
+			str += hours + ":";
+			if (minutes < 10) minutes = "0" + minutes;
+		}
+		return str + minutes + ":" + seconds;
+	}
+});
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
@@ -58,9 +83,23 @@ app.config(function($routeProvider, $locationProvider) {
 				}
 			}
 		})
+		.when("/beatmap/:id", {
+			"redirectTo": function(routeParams) {
+				return "/b/" + routeParams.id;
+			}
+		})
+		.when("/b/:id", {
+			"templateUrl": "/pages/beatmappage.html",
+			"controller": "beatmapController",
+			"resolve": {
+				"info": function($route) {
+					return $http({ "url": "https://api.trucksu.com/v1/beatmapsets?beatmap_id=" + $route.current.params.id }).then(function(result) { return result.data });
+				}
+			}
+		})
 		.when("/user/:id", {
 			"redirectTo": function(routeParams) {
-				return "/u/" + routeParams.id
+				return "/u/" + routeParams.id;
 			}
 		})
 		.when("/u/:id", {
@@ -89,5 +128,10 @@ app.controller("leaderboardController", function($scope, leaderboard) {
 
 app.controller("profileController", function($scope, info) {
 	$scope.info = info;
-	$(".timeago").timeago();
+});
+
+app.controller("beatmapController", function($scope, info) {
+	$scope.current_bid = parseInt(window.location.pathname.split("/")[2]);
+	$scope.Math = window.Math;
+	$scope.info = info;
 });

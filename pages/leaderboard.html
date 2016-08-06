@@ -17,7 +17,7 @@
 	<tbody>
 		<tr ng-repeat="user in leaderboard">
 			<td>#{{ $index + 1 }}</td>
-			<td><img ng-src="https://a.trucksu.com/{{ user.user['id'] }}" style="width: 27px; height: 27px;" /></td>
+			<td><img ng-src="https://a.trucksu.com/{{ user.user['id'] }}" style="width: 24px; height: 24px;" /></td>
 			<td><a ng-href="/u/{{ user.user['id'] }}">{{ user.user["username"] }}</a></td>
 			<td><b>{{ user["pp"] | number: 0 }}pp</b></td>
 			<td>{{ user["accuracy"] * 100 | number: 2 }}%</td>

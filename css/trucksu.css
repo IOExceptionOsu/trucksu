@@ -1,3 +1,13 @@
 .large-text {
 	font-size: 1.6em;
 }
+
+.tab-content {
+	padding: 15px;
+	> .tab-pane {
+		display: none;
+	}
+	> .active {
+		display: block;
+	}
+}
