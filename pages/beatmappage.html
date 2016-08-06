@@ -22,7 +22,7 @@
 				<div class="panel panel-default">
 					<div class="list-group">
 						<div class="list-group-item"><i class="fa fa-fw fa-star" ng-repeat="_ in ((_ = []) && (_.length=Math.floor(beatmap.difficultyrating)) && _) track by $index"></i> {{ beatmap.difficultyrating | number: 2 }}</div>
-						<div class="list-group-item"><i class="fa fa-fw fa-times-o"></i> {{ beatmap.max_combo | number: 0 }}</div>
+						<div class="list-group-item"><i class="fa fa-fw fa-times-circle"></i> {{ beatmap.max_combo | number: 0 }}</div>
 						<div class="list-group-item"><i class="fa fa-fw fa-clock-o"></i> {{ beatmap.hit_length | timeFormat }}</div>
 					</div>
 				</div>
