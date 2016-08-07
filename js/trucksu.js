@@ -149,6 +149,19 @@ app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 });
 
+var resend_verification = function() {
+	var handler = function(response) {
+		if (response.status == 200) {
+			$("#resend_notice").html("Done! Check your email.");
+		}
+	}
+	$http({
+		"method": "POST",
+		"url": "https://api.trucksu.com/v1/resend-verification-email",
+		"headers": { "Authorization": authToken }
+	}).then(handler, handler);
+};
+
 app.controller("mainController", function($scope, $rootScope) {
 	$rootScope.user = { "logged_in": undefined };
 	if (authToken = localStorage.getItem("authToken")) {

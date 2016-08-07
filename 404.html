@@ -23,6 +23,11 @@
 		<base href="/">
 	</head>
 	<body>
+		<div class="alert alert-warning" style="margin: 0" ng-if="user.email_verified == false">
+			<div class="container">
+				It looks like your email hasn't been verified yet. <span id="resend_notice" style="color: #060;"><a href="javascript:resend_verification();" style="color: #FFF; text-decoration: underline;">Resend verification email?</a></span>
+			</div>
+		</div>
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
