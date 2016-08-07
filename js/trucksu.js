@@ -126,7 +126,7 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		.when("/register", {
 			"templateUrl": "/pages/register.html",
-			"controller": "mainController",
+			"controller": "registerController",
 		})
 		.when("/user/:id", {
 			"redirectTo": function(routeParams) {
@@ -191,6 +191,30 @@ app.controller("loginController", function($scope, $controller) {
 			"method": "POST",
 			"url": "https://api.trucksu.com/v1/sessions",
 			"data": { "session": $scope.formData }
+		}).then(handler, handler);
+	};
+});
+
+app.controller("registerController", function($scope, $controller) {
+	$controller("mainController", { $scope: $scope });
+	$scope.formData = {};
+	$scope.register = function() {
+		var handler = function(response) {
+			console.log(response);
+			if (response.status != 201 && response.data.errors) {
+				$scope.errors = response.data.errors;
+				$scope.$apply();
+			} else {
+				if (response.data.jwt) {
+					localStorage.setItem("authToken", response.data.jwt);
+					location.href = "/u/" + response.data.user.id;
+				}
+			}
+		};
+		$http({
+			"method": "POST",
+			"url": "https://api.trucksu.com/v1/registrations",
+			"data": { "user": $scope.formData }
 		}).then(handler, handler);
 	};
 });

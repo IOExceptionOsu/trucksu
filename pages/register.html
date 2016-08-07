@@ -2,14 +2,16 @@
 	<div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title">Login</h2>
+				<h2 class="panel-title">Register</h2>
 			</div>
 			<div class="panel-body">
-				<form class="form-horizontal ng-pristine ng-valid" ng-submit="login()">
+				<form class="form-horizontal ng-pristine ng-valid" ng-submit="register()">
 					<fieldset>
-						<div ng-if="error">
+						<div ng-if="errors">
 							<div class="alert alert-danger">
-								{{ error }}
+								<ul>
+									<li ng-repeat="error in errors">{{ error }}</li>
+								</ul>
 							</div>
 						</div>
 					</fieldset>
@@ -24,6 +26,14 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-12 form-group">
+								<label class="col-sm-12" for="username"><small>Email</small></label>
+								<div class="col-sm-12">
+									<input class="form-control" type="email" required="" name="email" id="email" placeholder="Email" ng-model="formData.email" autocomplete="off">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 form-group">
 								<label class="col-sm-12" for="password"><small>Password</small></label>
 								<div class="col-sm-12">
 									<input class="form-control" type="password" required="" name="password" id="password" placeholder="Password" ng-model="formData.password" autocomplete="off">
@@ -32,21 +42,20 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-12 form-group">
+								<label class="col-sm-12" for="password"><small>Confirm Password</small></label>
+								<div class="col-sm-12">
+									<input class="form-control" type="password" required="" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" ng-model="formData.password_confirmation" autocomplete="off">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 form-group">
 								<center>
 									<input type="hidden" id="_csrf" value="">
-									<input type="submit" class="btn btn-success btn-lg" value="Login">
+									<input type="submit" class="btn btn-success btn-lg" value="Register">
 								</center>
 							</div>
 						</div>
-						<!-- <div class="row">
-							<div class="col-sm-12 form-group">
-								<center>
-									<small>
-										<a href="/forgot">Forgot Password?</a>
-									</small>
-								</center>
-							</div>
-						</div> -->
 					</fieldset>
 				</form>
 			</div>
