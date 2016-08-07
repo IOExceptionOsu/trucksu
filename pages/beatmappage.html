@@ -8,7 +8,7 @@
 
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" ng-repeat="beatmap in info.beatmaps" ng-if="beatmap.game_mode == 0" ng-class="{ active: beatmap.id == current_bid }">
-		<a href="/b/{{ beatmap.id }}" aria-controls="/b/{{ beatmap.id }}" role="tab" data-toggle="tab"><img src="/images/difficulty/{{ beatmap.difficultyrating | difficultyImage }}.png" style="vertical-align: middle;" /> {{ beatmap.version }}</a>
+		<a href="/b/{{ beatmap.id }}" aria-controls="/b/{{ beatmap.id }}" role="tab" data-toggle="tab"><img ng-src="/images/difficulty/{{ beatmap.difficultyrating | difficultyImage }}.png" style="vertical-align: middle;" /> {{ beatmap.version }}</a>
 	</li>
 </ul>
 
@@ -24,7 +24,7 @@
 				</div>
 				<br />
 				<p>
-					<img src="http://b.ppy.sh/thumb/{{ info.id }}l.jpg" style="width: 100%;" />
+					<img ng-src="http://b.ppy.sh/thumb/{{ info.id }}l.jpg" style="width: 100%;" />
 				</p>
 				<div class="panel panel-default">
 					<div class="list-group">
@@ -58,7 +58,7 @@
 									<td>Score</td>
 									<td>{{ beatmap.scores[0].score | number: 0 }}</td>
 									<td rowspan="5" style="text-align: center; vertical-align: middle !important;">
-										<img src="/images/ranks/large/{{ beatmap.scores[0].rank }}.png" style="width: 100%; max-width: 100px;" />
+										<img ng-src="/images/ranks/large/{{ beatmap.scores[0].rank }}.png" style="width: 100%; max-width: 100px;" />
 									</td>
 								</tr>
 								<tr>
@@ -102,7 +102,7 @@
 							<tbody>
 								<tr ng-repeat="score in beatmap.scores | orderBy: '-pp'">
 									<td>{{ $index + 1 }}</td>
-									<td><img src="/images/ranks/small/{{ score.rank }}.png" /></td>
+									<td><img ng-src="/images/ranks/small/{{ score.rank }}.png" /></td>
 									<td><a href="/u/{{ score.user.id }}">{{ score.user.username }}</a></td>
 									<td>{{ score.pp | number: 2 }}pp</td>
 									<td>{{ score.score | number: 0 }}</td>
