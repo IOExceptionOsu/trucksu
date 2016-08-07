@@ -13,6 +13,7 @@ app.config([
 app.factory('logout', function () {
 	return function () {
 		localStorage.removeItem("authToken");
+		$.removeCookie("authToken");
 		location.href = "/";
 	}
 });
@@ -164,7 +165,9 @@ var resend_verification = function() {
 
 app.controller("mainController", function($scope, $rootScope) {
 	$rootScope.user = { "logged_in": undefined };
-	if (authToken = localStorage.getItem("authToken")) {
+	if (localStorage) authToken = localStorage.getItem("authToken");
+	else authToken = $.cookie("authToken");
+	if (authToken) {
 		var handler = function(response) {
 			if (response.status == 200) {
 				response.data.logged_in = true;
@@ -196,6 +199,7 @@ app.controller("loginController", function($scope, $controller) {
 			} else {
 				if (response.data.jwt) {
 					localStorage.setItem("authToken", response.data.jwt);
+					$.cookie("authToken", response.data.jwt);
 					location.href = "/u/" + response.data.user.id;
 				}
 			}
@@ -220,6 +224,7 @@ app.controller("registerController", function($scope, $controller) {
 			} else {
 				if (response.data.jwt) {
 					localStorage.setItem("authToken", response.data.jwt);
+					$.cookie("authToken", response.data.jwt);
 					location.href = "/u/" + response.data.user.id;
 				}
 			}
