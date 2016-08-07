@@ -10,6 +10,13 @@ app.config([
 	}
 ])
 
+app.factory('logout', function () {
+	return function () {
+		localStorage.removeItem("authToken");
+		location.href = "/";
+	}
+});
+
 app.filter("mods", function() {
 	return function(curMods) {
 		const modMap = [
@@ -110,6 +117,13 @@ app.config(function($routeProvider, $locationProvider) {
 			"templateUrl": "/pages/login.html",
 			"controller": "loginController",
 		})
+		.when("/logout", {
+			"resolve": {
+				"logout": ["logout", function(logout) {
+					logout();
+				}]
+			}
+		})
 		.when("/register", {
 			"templateUrl": "/pages/register.html",
 			"controller": "mainController",
@@ -154,7 +168,6 @@ app.controller("mainController", function($scope, $rootScope) {
 		}).then(handler, handler);
 	} else {
 		$rootScope.user = { "logged_in": false };
-		$rootScope.$apply();
 	}
 });
 
@@ -170,7 +183,7 @@ app.controller("loginController", function($scope, $controller) {
 			} else {
 				if (response.data.jwt) {
 					localStorage.setItem("authToken", response.data.jwt);
-					location.reload(true);
+					location.href = "/u/" + response.data.user.id;
 				}
 			}
 		};
