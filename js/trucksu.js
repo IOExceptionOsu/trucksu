@@ -1,6 +1,13 @@
 var app = angular.module("trucksu", [ "ngRoute" ]);
 var $http = angular.injector([ "ng" ]).get("$http");
 
+app.config([
+	'$compileProvider',
+	function($compileProvider) {
+		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|osu):/);
+	}
+])
+
 app.filter("mods", function() {
 	return function(curMods) {
 		const modMap = [

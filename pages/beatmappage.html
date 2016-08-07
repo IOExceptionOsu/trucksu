@@ -16,6 +16,13 @@
 	<div role="tabpanel" ng-repeat="beatmap in info.beatmaps" ng-if="beatmap.game_mode == 0" ng-class="{ 'tab-pane': true, active: beatmap.id == current_bid }">
 		<div class="row">
 			<div class="col-sm-3 col-xs-12">
+				<div class="row">
+					<div class="btn-group col-xs-12" role="group">
+						<a ng-href="https://api.trucksu.com/v1/beatmapsets/{{ info.id }}/download" type="button" class="btn btn-primary col-xs-6">Download</a>
+						<a ng-href="osu://b/{{ beatmap.id }}" type="button" class="btn btn-primary col-xs-6">osu!direct</a>
+					</div>
+				</div>
+				<br />
 				<p>
 					<img src="http://b.ppy.sh/thumb/{{ info.id }}l.jpg" style="width: 100%;" />
 				</p>
@@ -44,13 +51,15 @@
 					<center>
 						<div class="panel panel-default" style="width: 60%;">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a href="/u/{{ beatmap.scores[0].user.id }}">{{ beatmap.scores[0].user.username }}</a> is in the lead!</h4>
+								<h4 class="panel-title"><b><a href="/u/{{ beatmap.scores[0].user.id }}">{{ beatmap.scores[0].user.username }}</a></b> is in the lead!</h4>
 							</div>
 							<table class="table">
 								<tr>
 									<td>Score</td>
 									<td>{{ beatmap.scores[0].score | number: 0 }}</td>
-									<td rowspan="5">{{ beatmap.scores[0].rank }}</td>
+									<td rowspan="5" style="text-align: center; vertical-align: middle !important;">
+										<img src="/images/ranks/large/{{ beatmap.scores[0].rank }}.png" style="width: 100%; max-width: 100px;" />
+									</td>
 								</tr>
 								<tr>
 									<td>Combo</td>
@@ -80,6 +89,7 @@
 							<thead>
 								<tr>
 									<th>Rank</th>
+									<th></th>
 									<th>Username</th>
 									<th>Performance</th>
 									<th>Score</th>
@@ -92,6 +102,7 @@
 							<tbody>
 								<tr ng-repeat="score in beatmap.scores | orderBy: '-pp'">
 									<td>{{ $index + 1 }}</td>
+									<td><img src="/images/ranks/small/{{ score.rank }}.png" /></td>
 									<td><a href="/u/{{ score.user.id }}">{{ score.user.username }}</a></td>
 									<td>{{ score.pp | number: 2 }}pp</td>
 									<td>{{ score.score | number: 0 }}</td>

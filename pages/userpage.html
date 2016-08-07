@@ -43,7 +43,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="score in info.stats[0]['scores'] | orderBy: '-pp' | limitTo: 5">
-								<td>{{ score.rank }}</td>
+								<td><img src="/images/ranks/small/{{ score.rank }}.png" /></td>
 								<td>
 									<a ng-href="/b/{{ score.beatmap.id }}">{{ score.beatmap.beatmapset.artist }} - {{ score.beatmap.beatmapset.title }} [{{ score.beatmap.version }}]</a> <b>{{ score.mods | mods }}</b>
 									<br />
@@ -76,7 +76,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="score in info.stats[0]['first_place_scores'] | orderBy: '-unix_time' | limitTo: 5">
-								<td>{{ score.rank }}</td>
+								<td><img src="/images/ranks/small/{{ score.rank }}.png" /></td>
 								<td>
 									<a ng-href="/b/{{ score.beatmap.id }}">{{ score.beatmap.beatmapset.artist }} - {{ score.beatmap.beatmapset.title }} [{{ score.beatmap.version }}]</a> <b>{{ score.mods | mods }}</b>
 									<br />
@@ -108,7 +108,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="score in info.stats[0]['scores'] | orderBy: '-pp'">
-								<td>{{ score.rank }}</td>
+								<td><img src="/images/ranks/small/{{ score.rank }}.png" /></td>
 								<td>
 									<a ng-href="/b/{{ score.beatmap.id }}">{{ score.beatmap.beatmapset.artist }} - {{ score.beatmap.beatmapset.title }} [{{ score.beatmap.version }}]</a> <b>{{ score.mods | mods }}</b>
 									<br />
@@ -140,7 +140,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="score in info.stats[0]['first_place_scores'] | orderBy: '-unix_time'">
-								<td>{{ score.rank }}</td>
+								<td><img src="/images/ranks/small/{{ score.rank }}.png" /></td>
 								<td>
 									<a ng-href="/b/{{ score.beatmap.id }}">{{ score.beatmap.beatmapset.artist }} - {{ score.beatmap.beatmapset.title }} [{{ score.beatmap.version }}]</a> <b>{{ score.mods | mods }}</b>
 									<br />
