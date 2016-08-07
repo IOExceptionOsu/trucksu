@@ -84,35 +84,37 @@
 							</table>
 						</div>
 					</center>
-					<div class="panel panel-default">
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>Rank</th>
-									<th></th>
-									<th>Username</th>
-									<th>Performance</th>
-									<th>Score</th>
-									<th>Combo</th>
-									<th>Misses</th>
-									<th>Accuracy</th>
-									<th>Mods</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="score in beatmap.scores | orderBy: '-pp'">
-									<td>{{ $index + 1 }}</td>
-									<td><img ng-src="/images/ranks/small/{{ score.rank }}.png" /></td>
-									<td><a href="/u/{{ score.user.id }}">{{ score.user.username }}</a></td>
-									<td>{{ score.pp | number: 2 }}pp</td>
-									<td>{{ score.score | number: 0 }}</td>
-									<td>{{ score.max_combo | number: 0 }}</td>
-									<td>{{ score.miss_count | number: 0 }}</td>
-									<td>{{ score.accuracy * 100 | number: 2 }}%</td>
-									<td>{{ score.mods | mods }}</td>
-								</tr>
-							</tbody>
-						</table>
+					<div style="overflow-x: auto;">
+						<div class="panel panel-default">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Rank</th>
+										<th></th>
+										<th>Username</th>
+										<th>Performance</th>
+										<th>Score</th>
+										<th>Combo</th>
+										<th>Misses</th>
+										<th>Accuracy</th>
+										<th>Mods</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="score in beatmap.scores | orderBy: '-pp'">
+										<td>{{ $index + 1 }}</td>
+										<td><img ng-src="/images/ranks/small/{{ score.rank }}.png" /></td>
+										<td><a href="/u/{{ score.user.id }}">{{ score.user.username }}</a></td>
+										<td>{{ score.pp | number: 2 }}pp</td>
+										<td>{{ score.score | number: 0 }}</td>
+										<td>{{ score.max_combo | number: 0 }}</td>
+										<td>{{ score.miss_count | number: 0 }}</td>
+										<td>{{ score.accuracy * 100 | number: 2 }}%</td>
+										<td>{{ score.mods | mods }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 				<div ng-if="beatmap.scores.length == 0">
