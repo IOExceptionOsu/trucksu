@@ -50,7 +50,7 @@
 									<small><span data-livestamp="{{ score.unix_time }}"></span></small>
 								</td>
 								<td>
-									({{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo }}x)
+									{{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo | number: 0 }}x
 								</td>
 								<td>
 									<b>{{ score.pp | number: 0 }}pp</b>
@@ -83,7 +83,7 @@
 									<small><span data-livestamp="{{ score.unix_time }}"></span></small>
 								</td>
 								<td>
-									({{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo }}x)
+									{{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo | number: 0 }}x
 								</td>
 								<td>
 									<b>{{ score.pp | number: 0 }}pp</b>
@@ -115,7 +115,7 @@
 									<small><span data-livestamp="{{ score.unix_time }}"></span></small>
 								</td>
 								<td>
-									({{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo }}x)
+									{{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo | number: 0 }}x
 								</td>
 								<td>
 									<b>{{ score.pp | number: 0 }}pp</b>
@@ -147,7 +147,7 @@
 									<small><span data-livestamp="{{ score.unix_time }}"></span></small>
 								</td>
 								<td>
-									({{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo }}x)
+									{{ score.accuracy * 100 | number: 2 }}%, {{ score.max_combo | number: 0 }}x
 								</td>
 								<td>
 									<b>{{ score.pp | number: 0 }}pp</b>

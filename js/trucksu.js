@@ -1,6 +1,8 @@
 var app = angular.module("trucksu", [ "ngRoute" ]);
 var $http = angular.injector([ "ng" ]).get("$http");
 
+var authToken;
+
 app.config([
 	'$compileProvider',
 	function($compileProvider) {
@@ -104,6 +106,14 @@ app.config(function($routeProvider, $locationProvider) {
 				}
 			}
 		})
+		.when("/login", {
+			"templateUrl": "/pages/login.html",
+			"controller": "loginController",
+		})
+		.when("/register", {
+			"templateUrl": "/pages/register.html",
+			"controller": "mainController",
+		})
 		.when("/user/:id", {
 			"redirectTo": function(routeParams) {
 				return "/u/" + routeParams.id;
@@ -125,20 +135,66 @@ app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 });
 
-app.controller("mainController", function() {
-	// todo
+app.controller("mainController", function($scope, $rootScope) {
+	$rootScope.user = { "logged_in": undefined };
+	if (authToken = localStorage.getItem("authToken")) {
+		var handler = function(response) {
+			if (response.status == 200) {
+				response.data.logged_in = true;
+				$rootScope.user = response.data;
+			} else {
+				$rootScope.user = { "logged_in": false };
+			}
+			$rootScope.$apply();
+		}
+		$http({
+			"method": "GET",
+			"url": "https://api.trucksu.com/v1/current-user",
+			"headers": { "Authorization": authToken }
+		}).then(handler, handler);
+	} else {
+		$rootScope.user = { "logged_in": false };
+		$rootScope.$apply();
+	}
 });
 
-app.controller("leaderboardController", function($scope, leaderboard) {
+app.controller("loginController", function($scope, $controller) {
+	$controller("mainController", { $scope: $scope });
+	$scope.formData = {};
+	$scope.login = function() {
+		var handler = function(response) {
+			console.log(response);
+			if (response.status != 201 && response.data.error) {
+				$scope.error = response.data.error;
+				$scope.$apply();
+			} else {
+				if (response.data.jwt) {
+					localStorage.setItem("authToken", response.data.jwt);
+					location.reload(true);
+				}
+			}
+		};
+		$http({
+			"method": "POST",
+			"url": "https://api.trucksu.com/v1/sessions",
+			"data": { "session": $scope.formData }
+		}).then(handler, handler);
+	};
+});
+
+app.controller("leaderboardController", function($scope, $controller, leaderboard) {
+	$controller("mainController", { $scope: $scope });
 	$scope.leaderboard = leaderboard;
 });
 
-app.controller("profileController", function($scope, info) {
+app.controller("profileController", function($scope, $controller, info) {
+	$controller("mainController", { $scope: $scope });
 	$scope.info = info;
 });
 
-app.controller("beatmapController", function($scope, info) {
+app.controller("beatmapController", function($scope, $controller, info) {
+	$controller("mainController", { $scope: $scope });
+	$scope.info = info;
 	$scope.current_bid = parseInt(window.location.pathname.split("/")[2]);
 	$scope.Math = window.Math;
-	$scope.info = info;
 });

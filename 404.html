@@ -38,7 +38,11 @@
 					<ul class="nav navbar-nav">
 						<li><a href="/">Leaderboard</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right" ng-show="user['logged_in']!=true">
+					<ul class="nav navbar-nav navbar-right" ng-show="user.logged_in == true">
+						<li><a ng-href="/u/{{ user.id }}">{{ user.username }}</a></li>
+						<li><a href="/logout">Logout</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" ng-show="user.logged_in == false">
 						<li><a href="/register">Register</a></li>
 						<li><a href="/login">Login</a></li>
 					</ul>
