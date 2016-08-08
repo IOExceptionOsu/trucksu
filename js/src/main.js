@@ -1,11 +1,3 @@
-// require("./jquery");
-// require("./moment");
-// require("./bootstrap");
-// require("./angular");
-// require("./angular-route");
-// require("./livestamp");
-// require("./jquery.cookie");
-
 var app = angular.module("trucksu", [ "ngRoute" ]);
 var $http = angular.injector([ "ng" ]).get("$http");
 
@@ -252,6 +244,32 @@ app.controller("leaderboardController", function($scope, $controller, leaderboar
 app.controller("profileController", function($scope, $controller, info) {
 	$controller("mainController", { $scope: $scope });
 	$scope.info = info;
+
+	var dates = [], values = [];
+	var points = info.stats[0].graphs.pp.points;
+	var now = Date.now() / 1000;
+	for (var i = 0; i < points.length; i++) {
+		if (now - points[i].unix_time > 30 * 24 * 60 * 60) continue;
+		dates.push(points[i].date);
+		values.push(Math.round(points[i].value * 100) / 100);
+	}
+	var chart = c3.generate({
+		data: {
+			x: 'x',
+			columns: [
+				['x'].concat(dates),
+				['Performance'].concat(values)
+			]
+		},
+		axis: {
+			x: {
+				type: 'timeseries',
+				tick: {
+					format: '%Y-%m-%d'
+				}
+			}
+		}
+	});
 });
 
 app.controller("beatmapController", function($scope, $controller, info) {

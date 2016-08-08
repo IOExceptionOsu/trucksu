@@ -3,11 +3,15 @@ var cssmin = require("gulp-cssmin");
 var concatcss = require("gulp-concat-css");
 var concatjs = require("gulp-concat");
 var rename = require("gulp-rename");
+var runsequence = require("run-sequence");
+var watch = require("gulp-watch");
 var uglify = require("gulp-uglifyjs");
 
 gulp.task("concat-js", function() {
 	gulp.src([
 		"js/src/jquery.js",
+		"js/src/d3.js",
+		"js/src/c3.js",
 		"js/src/moment.js",
 		"js/src/bootstrap.js",
 		"js/src/angular.js",
@@ -37,6 +41,15 @@ gulp.task("minify-css", function() {
 		.pipe(cssmin())
 		.pipe(rename({ suffix: ".min" }))
 		.pipe(gulp.dest("css"));
+});
+
+gulp.task("watch", function() {
+	watch("js/src/*.js", function() {
+		runsequence("concat-js"/*, "uglify-js"*/);
+	});
+	watch("css/src/*.css", function() {
+		runsequence("concat-css", "minify-css");
+	});
 });
 
 gulp.task("default", function() {
