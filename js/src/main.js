@@ -249,7 +249,7 @@ app.controller("profileController", function($scope, $controller, info) {
 	var points = info.stats[0].graphs.pp.points;
 	var now = Date.now() / 1000;
 	for (var i = 0; i < points.length; i++) {
-		if (now - points[i].unix_time > 30 * 24 * 60 * 60) continue;
+		// if (now - points[i].unix_time > 30 * 24 * 60 * 60) continue;
 		dates.push(points[i].date);
 		values.push(Math.round(points[i].value * 100) / 100);
 	}
